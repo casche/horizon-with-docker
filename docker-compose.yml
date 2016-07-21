@@ -1,0 +1,16 @@
+version: "2.0"
+services:
+ db:
+   image: rethinkdb
+   ports:
+     - "28015:28015"
+     - "8080:8080"
+ web:
+   build: .
+   environment:
+    RDB_HOST: db
+    RDB_PORT: 28015
+   depends_on:
+     - db
+   ports:
+     - "80:8081"
