@@ -11,5 +11,5 @@ env:
 after_success:
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"
 - docker build -f Dockerfile -t $DOCKER_IMAGE_NAME .
-- if [ ! -z "$TRAVIS_TAG" ]; then docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$TRAVIS_TAG;
+- if ([ "$TRAVIS_BRANCH" == "master" ] && [ ! -z "$TRAVIS_TAG" ]); then docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$TRAVIS_TAG;
   fi && docker push $DOCKER_IMAGE_NAME
